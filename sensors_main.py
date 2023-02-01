@@ -1,5 +1,5 @@
 import sys
-#Oma tekemä muutos
+
 def main():
     limits = parse_limits()
     sensor_data = []
