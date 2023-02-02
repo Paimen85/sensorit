@@ -1,5 +1,5 @@
 import sys
-#db
+#db.
 #oma toinen yritys
 #bu bu bu
 def main():
