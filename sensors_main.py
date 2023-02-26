@@ -1,19 +1,21 @@
 import sys
-#db.
-#oma toinen yritys
-#bu bu bu
+
 def main():
     limits = parse_limits()
     sensor_data = []
-
+    counter = 0
     if len(limits) > 0 and check_limits(limits):
         sensor_data = read_sensors()
-        # This is a mockup code that prints the sensor readings
-        # to console. To be replaced with actual implementation
-        # (whatever that might be according to the low level design,
-        # for example).
+        #This method print temperature under and upper limits and
+        # also time when it was happend
         for row in sensor_data:
-            print (row)
+            counter+=1
+            for elem in row:
+                if elem < limits[0]:
+                    print(elem, str(counter - 1) + ":00")
+                if elem > limits[1]:
+                    print(elem, str(counter - 1) + ":00")
+
     else:
         print("Error: Incorrect command line arguments.")
 
@@ -47,11 +49,34 @@ def check_limits(limits):
 # sensor) for development and testing. To be replaced with an actual
 # implementation.
 def read_sensors():
-    return [
-            [21.2, 18.2, 18.2, 22.2],
-            [-5.0, -4.2, -3.9, -4.5],
-            [1.2, 0.0, 0.5, -0.8, -1.0],
-            [25.0, -4.2, -13.9, 4.5]]
+    result = []
+    file1 = open("testdata/sensor1.txt")
+    file2 = open("testdata/sensor2.txt")
+    file3 = open("testdata/sensor3.txt")
+    file4 = open("testdata/sensor4.txt")
+
+    for i in range(24):
+        line = []
+        data1 = file1.readline()
+        data2 = file2.readline()
+        data3 = file3.readline()
+        data4 = file4.readline()
+
+        newList1 = data1.split(',')
+        newList2 = data2.split(',')
+        newList3 = data3.split(',')
+        newList4 = data4.split(',')
+
+        line.append(float(newList1[1].replace("\n", ""))) 
+        line.append(float(newList2[1].replace("\n", ""))) 
+        line.append(float(newList3[1].replace("\n", ""))) 
+        line.append(float(newList4[1].replace("\n", ""))) 
+        result.append(line)
+    file1.close()
+    file2.close()
+    file3.close()
+    file4.close()
+    return result
 
 # Other parts of the implementation such as printing the information
 # for the operator are also missing and to be implemented.
